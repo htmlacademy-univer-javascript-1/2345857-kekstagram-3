@@ -1,3 +1,4 @@
 import { generateObjects } from './data.js';
+import { showPicturesFromObjects } from './pictures.js';
 
-generateObjects();
+showPicturesFromObjects(generateObjects());
