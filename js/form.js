@@ -1,3 +1,5 @@
+import { setupListeners, removeListeners } from './effects.js';
+
 const imageForm = document.querySelector('.img-upload__form');
 const imageOverlay = imageForm.querySelector('.img-upload__overlay');
 const closeButton = imageForm.querySelector('#upload-cancel');
@@ -22,6 +24,7 @@ function closeWindow() {
   document.removeEventListener('keydown', closeOnButton);
   img.classList.remove(...img.classList);
   img.classList.add('effects__preview--none');
+  removeListeners();
   cleanForm();
 }
 
@@ -30,6 +33,7 @@ const openWindow = (e) => {
   imageOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', closeOnButton);
+  setupListeners();
 };
 
 function cleanForm() {
