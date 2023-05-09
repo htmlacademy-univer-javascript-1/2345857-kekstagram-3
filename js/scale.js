@@ -1,23 +1,23 @@
-const decrease = document.querySelector('.scale__control--smaller');
-const increase = document.querySelector('.scale__control--bigger');
+const decreaseBtn = document.querySelector('.scale__control--smaller');
+const increaseBtn= document.querySelector('.scale__control--bigger');
 const scale = document.querySelector('.scale__control--value');
-const imgPreview = document.querySelector('.img-upload__preview');
+const image = document.querySelector('.img-upload__preview');
 
-export const resize = (newScale) => {
+export const resizeImage = (newScale) => {
   scale.value = `${newScale}%`;
-  imgPreview.style.transform = `scale(${newScale/100})`;
+  image.style.transform = `scale(${newScale/100})`;
 };
 
-decrease.addEventListener('click', () => {
+decreaseBtn.addEventListener('click', () => {
   const currentScale = Number(scale.value.replace('%', ''));
-  if (currentScale !== 25) {
-    resize(currentScale - 25);
+  if (currentScale > 25) {
+    resizeImage(currentScale - 25);
   }
 });
 
-increase.addEventListener('click', () => {
+increaseBtn.addEventListener('click', () => {
   const currentScale = Number(scale.value.replace('%', ''));
-  if (currentScale !== 100) {
-    resize(currentScale + 25);
+  if (currentScale < 100) {
+    resizeImage(currentScale + 25);
   }
 });

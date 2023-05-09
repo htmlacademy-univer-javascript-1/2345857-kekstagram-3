@@ -6,27 +6,12 @@ const closeButton = imageForm.querySelector('#upload-cancel');
 const uploadFile = document.querySelector('#upload-file');
 const img = document.querySelector('.img-upload__preview > img');
 
-closeButton.onclick = (evt) => {
-  evt.preventDefault();
-  closeWindow();
+const cleanForm = () => {
+  document.querySelector('#upload-select-image').reset();
+  document.querySelector('#upload-file').value = '';
+  document.querySelector('.text__hashtags').value = '';
+  document.querySelector('.text__description').value = '';
 };
-
-const closeOnButton = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    closeWindow();
-  }
-};
-
-function closeWindow() {
-  imageOverlay.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', closeOnButton);
-  img.classList.remove(...img.classList);
-  img.classList.add('effects__preview--none');
-  removeListeners();
-  cleanForm();
-}
 
 const openWindow = (e) => {
   img.src = window.URL.createObjectURL(e.target.files[0]);
@@ -36,12 +21,27 @@ const openWindow = (e) => {
   setupListeners();
 };
 
-function cleanForm() {
-  document.querySelector('#upload-select-image').reset();
-  document.querySelector('#upload-file').value = '';
-  document.querySelector('.text__hashtags').value = '';
-  document.querySelector('.text__description').value = '';
+export const closeWindow = () => {
+  imageOverlay.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', closeOnButton);
+  img.classList.remove(...img.classList);
+  img.classList.add('effects__preview--none');
+  removeListeners();
+  cleanForm();
+};
+
+function closeOnButton(evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closeWindow();
+  }
 }
+
+closeButton.onclick = (evt) => {
+  evt.preventDefault();
+  closeWindow();
+};
 
 uploadFile.addEventListener('change', openWindow);
 
@@ -54,5 +54,3 @@ document.addEventListener('keydown', (e) => {
 const cancelButton = document.querySelector('#upload-cancel');
 
 cancelButton.addEventListener('click', () => closeWindow());
-
-export { closeWindow };
